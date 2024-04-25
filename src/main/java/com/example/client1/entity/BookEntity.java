@@ -1,15 +1,14 @@
 package com.example.client1.entity;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import com.dlsc.formsfx.model.structure.Form;
+import com.dlsc.formsfx.model.structure.Section;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class BookEntity {
 
     private Long id;
@@ -18,4 +17,9 @@ public class BookEntity {
     private PublisherEntity publisher;
     private GenreEntity genre;
     private String year;
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

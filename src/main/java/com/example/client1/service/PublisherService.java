@@ -1,5 +1,6 @@
 package com.example.client1.service;
 
+import com.example.client1.entity.AuthorEntity;
 import com.example.client1.entity.PublisherEntity;
 import com.example.client1.response.BaseResponse;
 import com.example.client1.response.DataResponse;
@@ -9,8 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 
-import java.awt.print.Book;
 import java.lang.reflect.Type;
+import java.util.Comparator;
 
 public class PublisherService {
 
@@ -31,6 +32,7 @@ public class PublisherService {
         if (data.isSuccess()) {
             this.data.addAll(data.getData());
             this.data.forEach(System.out::println);
+            sort();
         }else {
             throw new RuntimeException(data.getMessage());
         }
@@ -47,12 +49,15 @@ public class PublisherService {
         }
     }
 
-    public void update(PublisherEntity data) {
-        String temp = http.put(prop.getUpdatePublisher(), service.getJson(data));
+    public void update(PublisherEntity after, PublisherEntity before) {
+        System.out.println(before);
+        System.out.println(after);
+        String temp = http.put(prop.getUpdatePublisher(), service.getJson(after));
         DataResponse<PublisherEntity> response = service.getObject(temp, dataType);
         if (response.isSuccess()) {
-            this.data.remove(data);
-            this.data.add(response.getData());
+            this.data.remove(before);
+            this.data.add(after);
+            sort();
         }else {
             throw new RuntimeException(response.getMessage());
         }
@@ -63,6 +68,7 @@ public class PublisherService {
         BaseResponse response = service.getObject(temp, BaseResponse.class);
         if(response.isSuccess()) {
             this.data.remove(data);
+            sort();
         }else {
             throw new RuntimeException(response.getMessage());
         }
@@ -76,5 +82,8 @@ public class PublisherService {
         }else {
             throw new RuntimeException((response.getMessage()));
         }
+    }
+    private void sort() {
+        data.sort(Comparator.comparing(PublisherEntity::getTitle));
     }
 }

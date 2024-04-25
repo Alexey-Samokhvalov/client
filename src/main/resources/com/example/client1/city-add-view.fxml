@@ -14,7 +14,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <TextField fx:id="texTitle" layoutX="167.0" layoutY="46.0">
+      <TextField fx:id="textTitle" layoutX="167.0" layoutY="46.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <ListView fx:id="dataList" layoutX="355.0" layoutY="16.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="dataList" layoutX="355.0" layoutY="16.0" onMouseClicked="#onMouseClickDataList" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="253.0" layoutY="125.0" mnemonicParsing="false" onAction="#deleteAction" text="Удалить">
          <font>
             <Font size="14.0" />

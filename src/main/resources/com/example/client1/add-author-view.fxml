@@ -49,7 +49,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <ListView fx:id="dataList" layoutX="361.0" layoutY="39.0" prefHeight="206.0" prefWidth="188.0" />
+      <ListView fx:id="dataList" layoutX="361.0" layoutY="39.0" onMouseClicked="#onMouseClickDataList" prefHeight="206.0" prefWidth="188.0" />
       <Button layoutX="257.0" layoutY="218.0" mnemonicParsing="false" onAction="#deleteAction" text="Удалить">
          <font>
             <Font size="14.0" />

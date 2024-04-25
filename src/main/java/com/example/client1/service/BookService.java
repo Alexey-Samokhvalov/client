@@ -1,5 +1,6 @@
 package com.example.client1.service;
 
+import com.example.client1.entity.AuthorEntity;
 import com.example.client1.entity.BookEntity;
 import com.example.client1.response.BaseResponse;
 import com.example.client1.response.DataResponse;
@@ -11,6 +12,7 @@ import lombok.Getter;
 
 import java.awt.print.Book;
 import java.lang.reflect.Type;
+import java.util.Comparator;
 
 public class BookService {
     @Getter
@@ -29,6 +31,7 @@ public class BookService {
 if (data.isSuccess()) {
     this.data.addAll(data.getData());
     this.data.forEach(System.out::println);
+    sort();
 }else {
     throw new RuntimeException(data.getMessage());
 }
@@ -45,12 +48,13 @@ if (data.isSuccess()) {
    }
     }
 
-    public void update(BookEntity data) {
-        String temp = http.put(prop.getUpdateBook(), service.getJson(data));
+    public void update(BookEntity after, BookEntity before) {
+        String temp = http.put(prop.getUpdateBook(), service.getJson(after));
         DataResponse<BookEntity> response = service.getObject(temp, dataType);
         if (response.isSuccess()) {
-            this.data.remove(data);
-            this.data.add(response.getData());
+            this.data.remove(before);
+            this.data.add(after);
+            sort();
         }else {
             throw new RuntimeException(response.getMessage());
         }
@@ -74,5 +78,8 @@ if (data.isSuccess()) {
         }else {
             throw new RuntimeException((response.getMessage()));
         }
+    }
+    private void sort() {
+        data.sort(Comparator.comparing(BookEntity::getTitle));
     }
 }

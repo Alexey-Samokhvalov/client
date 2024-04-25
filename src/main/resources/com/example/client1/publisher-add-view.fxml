@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client1.controller.AddPublisherController">
    <children>
-      <TextField fx:id="texTitle" layoutX="170.0" layoutY="46.0">
+      <TextField fx:id="textTitle" layoutX="170.0" layoutY="46.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -30,17 +30,17 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="50.0" layoutY="92.0" text="Автор">
+      <Label layoutX="50.0" layoutY="92.0" text="Город">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ComboBox fx:id="ComboBoxCity1" layoutX="170.0" layoutY="92.0" prefHeight="30.0" prefWidth="173.0" />
+      <ComboBox fx:id="comboBox" layoutX="170.0" layoutY="92.0" onAction="#clickedToList" prefHeight="30.0" prefWidth="173.0" />
       <Button layoutX="255.0" layoutY="163.0" mnemonicParsing="false" onAction="#deleteAction" text="Удалить">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <ListView fx:id="dataList" layoutX="354.0" layoutY="23.0" prefHeight="191.0" prefWidth="198.0" />
+      <ListView fx:id="dataList" layoutX="354.0" layoutY="23.0" onMouseClicked="#onMouseClickedToList" prefHeight="191.0" prefWidth="198.0" />
    </children>
 </AnchorPane>

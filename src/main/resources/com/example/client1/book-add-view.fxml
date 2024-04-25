@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client1.controller.AddBookController">
    <children>
       <TextField fx:id="textTitle" layoutX="163.0" layoutY="35.0" prefHeight="30.0" prefWidth="390.0">
@@ -35,19 +34,19 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ComboBox fx:id="ComboBoxCity1" layoutX="167.0" layoutY="80.0" prefHeight="30.0" prefWidth="221.0" />
+      <ComboBox fx:id="ComboBoxAuthor" layoutX="167.0" layoutY="80.0" prefHeight="30.0" prefWidth="221.0" />
       <Label layoutX="34.0" layoutY="136.0" text="Издательство">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ComboBox fx:id="ComboBoxCity2" layoutX="165.0" layoutY="136.0" prefHeight="30.0" prefWidth="221.0" />
+      <ComboBox fx:id="ComboBoxPublisher" layoutX="165.0" layoutY="136.0" prefHeight="30.0" prefWidth="221.0" />
       <Label layoutX="43.0" layoutY="193.0" text="Жанр">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ComboBox fx:id="ComboBoxCity3" layoutX="166.0" layoutY="193.0" prefHeight="30.0" prefWidth="221.0" />
+      <ComboBox fx:id="ComboBoxGenre" layoutX="166.0" layoutY="193.0" prefHeight="30.0" prefWidth="221.0" />
       <TextField fx:id="textYear" layoutX="165.0" layoutY="246.0">
          <font>
             <Font size="14.0" />

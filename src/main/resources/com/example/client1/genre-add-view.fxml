@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client1.controller.AddGenreController">
    <children>
       <Button layoutX="51.0" layoutY="135.0" mnemonicParsing="false" onAction="#addAction" text="Добавить">
@@ -15,7 +14,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <TextField fx:id="texTitle" layoutX="177.0" layoutY="56.0">
+      <TextField fx:id="textTitle" layoutX="177.0" layoutY="56.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -30,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <ListView fx:id="dataList" layoutX="365.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="dataList" layoutX="365.0" layoutY="26.0" onMouseClicked="#onMouseClickedToList" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="263.0" layoutY="135.0" mnemonicParsing="false" onAction="#deleteAction" text="Удалить">
          <font>
             <Font size="14.0" />

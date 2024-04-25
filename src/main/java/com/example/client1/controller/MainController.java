@@ -1,31 +1,41 @@
 package com.example.client1.controller;
 
+import com.example.client1.MainApplication;
+import com.example.client1.Start;
 import com.example.client1.entity.BookEntity;
+import com.example.client1.entity.PublisherEntity;
 import com.example.client1.service.BookService;
 import com.example.client1.service.HttpService;
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.Optional;
+
 public class MainController {
 
-           BookService service = new BookService();
+        BookService service = new BookService();
 
-         @FXML
-           private void initialize(){
-                   //получаем все книги с сервера
-                   service.getAll();
-                   //связываем поля таблицы со столбцами
-                   columnTitle.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("title"));
-                   columnAuthor.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("author"));
-                   columnPublisher.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("publisher"));
-                   columnGenre.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("genre"));
-                   columnNumber.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("year"));
-                   bookTable.setItems(service.getData());
-           }
+
+        private boolean addFlag = true;
+        @FXML
+        private void initialize() {
+
+                service.getAll();
+
+                columnTitle.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("title"));
+                columnAuthor.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("author"));
+                columnPublisher.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("publisher"));
+                columnGenre.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("genre"));
+                columnNumber.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("year"));
+                bookTable.setItems(service.getData());
+        }
+
         @FXML
         private TableView<BookEntity> bookTable;
 
@@ -46,35 +56,40 @@ public class MainController {
         private TableColumn<BookEntity, String> columnTitle;
 
         @FXML
-
         void addBookAction(ActionEvent event) {
-
+                Optional<BookEntity> book = Optional.empty();
+                MainApplication.showBookDialog(book);
         }
+
 
         @FXML
         void addOrChangeAuthorAction(ActionEvent event) {
-
+                MainApplication.showDialog("add-author-view.fxml", "Работа с авторами");
         }
 
         @FXML
         void addOrChangeCityAction(ActionEvent event) {
-
+                MainApplication.showDialog("city-add-view.fxml", "Работа с городами");
         }
 
         @FXML
         void addOrChangeGenreAction(ActionEvent event) {
-
+                MainApplication.showDialog("genre-add-view.fxml", "Работа с жанрами");
         }
 
         @FXML
         void addOrChangePublisherAction(ActionEvent event) {
-
+                MainApplication.showDialog("publisher-add-view.fxml", "Работа с издательствами");
         }
-
+        private BookEntity getSelectionElement() {
+                BookEntity temp = bookTable.getSelectionModel().getSelectedItem();
+                return temp;
+        }
         @FXML
         void changeBookAction(ActionEvent event) {
-
-        }
+                book=Optional.of(bookTable.getSelectionModel().getSelectedItem());
+                MainApplication.showBookDialog(book);
+                }
 
         @FXML
         void closeAction(ActionEvent event) {
@@ -88,8 +103,16 @@ public class MainController {
 
         @FXML
         void deleteBookAction(ActionEvent event) {
-                HttpService service = new HttpService();
-                System.out.println(service.get("http://localhost:28245/api/v1/book/all"));
+                BookEntity selectedIndex = bookTable.getSelectionModel().getSelectedItem();
+                if (selectedIndex != null) {
+                       service.delete(selectedIndex);
+                } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Нет выбора");
+                        alert.setHeaderText("Никто не выбран :(");
+                        alert.setContentText("Пожалуйста, выберите книгу в таблице");
+                        alert.showAndWait();
+                }
         }
 
 
@@ -107,15 +130,23 @@ public class MainController {
         void deletePublisherAction(ActionEvent event) {
 
         }
+                private Optional<BookEntity> book = Optional.empty();
 
+                public void setBook(Optional<BookEntity> book) {
+                        this.book = book;
+                        if (book.isPresent()) {
+                                if (book.get().getId() != null) {
+                                        service.update(book.get(), bookTable.getSelectionModel().getSelectedItem());
+                                }else service.add(book.get());
+                        }
+                }
+        @FXML
+        private Label welcomeText;
 
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-
+        @FXML
+        protected void onHelloButtonClick() {
+                welcomeText.setText("Welcome to JavaFX Application!");
+        }
 }
+
+
